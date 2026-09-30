@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Project phases
+/sharda-offset-phase1/
+/sharda-offset-phase2/
+/sharda-offset-phase4/
+/sharda-offset-phase4-fixed/
+/sharda-offset-phase5/
+/sharda-offset-phase6/
+/sharda-offset-phase7/
+
+# Environment variables
+.env
+.env.*
+
+# Archives
+*.zip
+
+# PDF files
+*.pdf
+
+# Python virtual environments
+.venv/
+venv/
+
+# Build / generated files
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
