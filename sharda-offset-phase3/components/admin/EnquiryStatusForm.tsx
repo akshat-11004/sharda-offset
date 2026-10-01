@@ -1,51 +1,47 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const statuses = [
-  'NEW',
-  'CONTACTED',
-  'QUOTATION_SENT',
-  'IN_PROGRESS',
-  'CONVERTED',
-  'CLOSED',
-  'NOT_INTERESTED'
+  "NEW",
+  "CONTACTED",
+  "QUOTATION_SENT",
+  "IN_PROGRESS",
+  "CONVERTED",
+  "CLOSED",
+  "NOT_INTERESTED",
 ];
-
-export default function EnquiryStatusForm({ id, status }: { id: string; status: string }) {
-  // Moving the hook inside the component fixes the error
-  const router = useRouter(); 
-  
+export default function EnquiryStatusForm({
+  id,
+  status,
+}: {
+  id: string;
+  status: string;
+}) {
+  const router = useRouter();
   const [value, setValue] = useState(status);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
-
+  const [error, setError] = useState("");
   async function change(next: string) {
     setValue(next);
     setSaving(true);
-    setError('');
-    
+    setError("");
     try {
       const r = await fetch(`/api/admin/enquiries/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: next })
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: next }),
       });
-      
       const data = await r.json();
-      if (!r.ok || !data.ok)
-        throw new Error(data.error || 'Unable to update.');
-      
+      if (!r.ok || !data.ok) throw new Error(data.error || "Unable to update.");
       router.refresh();
     } catch (e) {
       setValue(status);
-      setError(e instanceof Error ? e.message : 'Unable to update.');
+      setError(e instanceof Error ? e.message : "Unable to update.");
     } finally {
       setSaving(false);
     }
   }
-
   return (
     <div className="min-w-[190px]">
       <label className="text-xs font-semibold uppercase tracking-wide text-[#6e665f]">
@@ -58,7 +54,7 @@ export default function EnquiryStatusForm({ id, status }: { id: string; status: 
         >
           {statuses.map((s) => (
             <option key={s} value={s}>
-              {s.replaceAll('_', ' ')}
+              {s.replaceAll("_", " ")}
             </option>
           ))}
         </select>

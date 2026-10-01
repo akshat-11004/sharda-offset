@@ -1,8 +1,0 @@
-{
-  "/api/auth/login/route": "app/api/auth/login/route.js",
-  "/api/admin/enquiries/[id]/route": "app/api/admin/enquiries/[id]/route.js",
-  "/(customer)/page": "app/(customer)/page.js",
-  "/admin/login/page": "app/admin/login/page.js",
-  "/admin/enquiries/page": "app/admin/enquiries/page.js",
-  "/admin/(protected)/page": "app/admin/(protected)/page.js"
-}
