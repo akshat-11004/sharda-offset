@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { useState } from 'react';
 import { business } from '@/lib-data';
+import { trackEvent } from '@/lib/analytics';
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -24,11 +25,11 @@ export function Navbar() {
         </Link>
       </nav>
       <div className="hidden items-center gap-2 sm:flex">
-        <a className="focus-ring inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-4 py-2 text-sm" href={`tel:${business.phones[0].replace(/\s/g,'')}`}><Phone size={16}/> Call</a>
-        <a className="focus-ring inline-flex items-center gap-2 rounded-full bg-[var(--maroon)] px-4 py-2 text-sm font-medium text-white" href={whatsapp}><MessageCircle size={16}/> WhatsApp</a>
+        <a onClick={() => trackEvent({ event: 'phone_click', metadata: { location: 'navbar' } })} className="focus-ring inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-4 py-2 text-sm" href={`tel:${business.phones[0].replace(/\s/g,'')}`}><Phone size={16}/> Call</a>
+        <a onClick={() => trackEvent({ event: 'whatsapp_click', metadata: { location: 'navbar' } })} className="focus-ring inline-flex items-center gap-2 rounded-full bg-[var(--maroon)] px-4 py-2 text-sm font-medium text-white" href={whatsapp}><MessageCircle size={16}/> WhatsApp</a>
       </div>
       <button className="focus-ring rounded-lg p-2 md:hidden" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={()=>setOpen(v=>!v)}>{open?<X/>:<Menu/>}</button>
     </div>
-    {open && <div className="border-t border-[var(--border)] bg-[var(--surface)] md:hidden"><nav className="container-shell flex flex-col gap-1 py-4" aria-label="Mobile navigation">{links.map(([label, href])=><Link key={label} href={href} onClick={()=>setOpen(false)} className="rounded-xl px-4 py-3 font-medium hover:bg-[var(--background)]">{label}</Link>)}<div className="mt-2 grid grid-cols-2 gap-2"><a href={`tel:${business.phones[0].replace(/\s/g,'')}`} className="rounded-xl border border-[var(--border)] px-4 py-3 text-center text-sm font-semibold">Call</a><a href={whatsapp} className="rounded-xl bg-[var(--maroon)] px-4 py-3 text-center text-sm font-semibold text-white">WhatsApp</a></div></nav></div>}
+    {open && <div className="border-t border-[var(--border)] bg-[var(--surface)] md:hidden"><nav className="container-shell flex flex-col gap-1 py-4" aria-label="Mobile navigation">{links.map(([label, href])=><Link key={label} href={href} onClick={()=>setOpen(false)} className="rounded-xl px-4 py-3 font-medium hover:bg-[var(--background)]">{label}</Link>)}<div className="mt-2 grid grid-cols-2 gap-2"><a onClick={() => trackEvent({ event: 'phone_click', metadata: { location: 'navbar_mobile' } })} href={`tel:${business.phones[0].replace(/\s/g,'')}`} className="rounded-xl border border-[var(--border)] px-4 py-3 text-center text-sm font-semibold">Call</a><a onClick={() => trackEvent({ event: 'whatsapp_click', metadata: { location: 'navbar_mobile' } })} href={whatsapp} className="rounded-xl bg-[var(--maroon)] px-4 py-3 text-center text-sm font-semibold text-white">WhatsApp</a></div></nav></div>}
   </header>;
 }
