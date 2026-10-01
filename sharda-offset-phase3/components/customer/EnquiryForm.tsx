@@ -1,6 +1,7 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 export type EnquiryServiceOption = { id: string; name: string };
 export type EnquirySampleOption = { id: string; title: string };
@@ -21,6 +22,13 @@ export default function EnquiryForm({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const started = useRef(false);
+
+  function trackStart() {
+    if (started.current) return;
+    started.current = true;
+    trackEvent({ event: 'enquiry_started' });
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -62,6 +70,7 @@ export default function EnquiryForm({
 
       form.reset();
       setSuccess('Thank you! Your enquiry has been received. Our team will contact you shortly.');
+      trackEvent({ event: 'contact_form_submit', metadata: { serviceId: payload.serviceId || null, sampleId: payload.sampleId || null } });
     } catch (submissionError) {
       console.error('Enquiry form submission failed:', submissionError);
       setError(
@@ -75,7 +84,7 @@ export default function EnquiryForm({
   }
 
   return (
-    <form onSubmit={submit} className="space-y-5 rounded-3xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
+    <form onSubmit={submit} onFocus={trackStart} className="space-y-5 rounded-3xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8a5a2b]">Start an enquiry</p>
         <h2 className="mt-2 text-2xl font-semibold text-[#292522]">Tell us what you need</h2>

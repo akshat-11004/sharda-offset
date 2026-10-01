@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ArrowLeft,
   BarChart3,
   ImageIcon,
   Inbox,
@@ -14,7 +13,7 @@ import {
 } from "lucide-react";
 
 const items = [
-  ["Dashboard", "/admin", LayoutDashboard],
+  ["Admin Home", "/admin", LayoutDashboard],
   ["Enquiries", "/admin/enquiries", Inbox],
   ["Samples", "/admin/samples", ImageIcon],
   ["Categories", "/admin/categories", ImageIcon],
@@ -54,13 +53,6 @@ export default function AdminNavigation() {
         })}
       </nav>
       <div className="grid gap-1 border-t border-black/10 p-3">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm hover:bg-[#f6f1e9]"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back
-        </button>
         <Link
           href="/"
           className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-[#f6f1e9]"

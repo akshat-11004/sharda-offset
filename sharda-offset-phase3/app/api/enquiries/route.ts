@@ -171,12 +171,11 @@ export async function POST(request: NextRequest) {
       await prisma.analyticsEvent.create({
         data: {
           event: 'enquiry_submitted',
-          page: '/contact',
-          serviceId: serviceId || undefined,
-          sampleId: sampleId || undefined,
-          // source: 'website',
+          path: '/contact',
           metadata: {
             preferredContact,
+            serviceId,
+            sampleId,
           },
         },
       });

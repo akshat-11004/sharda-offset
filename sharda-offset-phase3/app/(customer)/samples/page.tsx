@@ -1,10 +1,17 @@
-'use client';
-import { useMemo, useState } from 'react';
-import { Search } from 'lucide-react';
 import { Navbar } from '@/components/customer/Navbar';
-import { SampleCard } from '@/components/customer/SampleCard';
+import { SampleGallery } from '@/components/customer/SampleGallery';
 import { EnquiryCta } from '@/components/customer/EnquiryCta';
 import { WhatsAppFab } from '@/components/customer/WhatsAppFab';
-import { samples } from '@/lib-data';
-const categories=['All',...Array.from(new Set(samples.map(s=>s.category)))];
-export default function SamplesPage(){ const [query,setQuery]=useState(''); const [cat,setCat]=useState('All'); const filtered=useMemo(()=>samples.filter(s=>(cat==='All'||s.category===cat)&&(`${s.title} ${s.category} ${s.tag}`.toLowerCase().includes(query.toLowerCase()))),[query,cat]); return <><Navbar/><main><section className="border-b border-[var(--border)] bg-[var(--surface)] py-16"><div className="container-shell"><p className="eyebrow">Portfolio</p><h1 className="display mt-3 max-w-3xl text-5xl md:text-6xl">Find a design direction you can make your own.</h1><p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">Search by service, category or style. When something catches your eye, request a similar design and continue the conversation with the shop.</p><div className="mt-8 max-w-2xl"><label className="sr-only" htmlFor="sample-search">Search samples</label><div className="flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3"><Search size={19} className="text-[var(--muted)]"/><input id="sample-search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search wedding, doctor, banner…" className="w-full bg-transparent outline-none"/></div></div></div></section><section className="py-14"><div className="container-shell"><div className="mb-8 flex gap-2 overflow-x-auto pb-2">{categories.map(c=><button key={c} onClick={()=>setCat(c)} className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm transition ${cat===c?'border-[var(--foreground)] bg-[var(--foreground)] text-white':'border-[var(--border)] bg-[var(--surface)] hover:border-[var(--foreground)]'}`}>{c}</button>)}</div>{filtered.length?<div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{filtered.map(s=><SampleCard key={s.slug} sample={s}/>)}</div>:<div className="rounded-2xl border border-dashed border-[var(--border)] p-12 text-center"><h2 className="font-semibold">No samples found.</h2><p className="mt-2 text-sm text-[var(--muted)]">Try another search or browse all categories.</p><button onClick={()=>{setQuery('');setCat('All')}} className="mt-5 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-white">Browse all samples</button></div>}</div></section><EnquiryCta/></main><WhatsAppFab/></> }
+import { prisma } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
+
+export default async function SamplesPage() {
+  const samples = await prisma.sample.findMany({
+    where: { isActive: true },
+    include: { category: true, service: true, images: { orderBy: { sortOrder: 'asc' } } },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return <><Navbar/><main><section className="border-b border-[var(--border)] bg-[var(--surface)] py-16"><div className="container-shell"><p className="eyebrow">Portfolio</p><h1 className="display mt-3 max-w-3xl text-5xl md:text-6xl">Find a design direction you can make your own.</h1><p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">Search by service, category or style. When something catches your eye, request a similar design and continue the conversation with the shop.</p></div></section><SampleGallery samples={samples}/><EnquiryCta/></main><WhatsAppFab/></>;
+}
