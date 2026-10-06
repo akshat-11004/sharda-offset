@@ -180,3 +180,17 @@ model FAQ {
 
   @@index([displayOrder])
 }
+
+model SiteSetting {
+  id               String   @id @default(cuid())
+  businessName     String
+  address          String
+  phonePrimary     String
+  phoneSecondary   String?
+  whatsapp         String
+  email            String
+  hours            String
+  whatsappMessage  String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
