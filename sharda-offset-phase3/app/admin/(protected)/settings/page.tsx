@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 type Settings = {
   businessName: string;
+  logoUrl: string;
   address: string;
   phonePrimary: string;
   phoneSecondary: string;
@@ -12,9 +13,9 @@ type Settings = {
   hours: string;
   whatsappMessage: string;
 };
-
 const defaults: Settings = {
   businessName: "",
+  logoUrl: "",
   address: "",
   phonePrimary: "",
   phoneSecondary: "",
@@ -39,6 +40,7 @@ export default function AdminSettingsPage() {
         if (response.ok && data.settings) {
           setForm({
             businessName: data.settings.businessName ?? "",
+            logoUrl: data.settings.logoUrl ?? "",
             address: data.settings.address ?? "",
             phonePrimary: data.settings.phonePrimary ?? "",
             phoneSecondary: data.settings.phoneSecondary ?? "",
@@ -140,6 +142,22 @@ export default function AdminSettingsPage() {
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
               required
             />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="text-sm font-medium text-[#272321]">
+              Brand logo URL
+            </label>
+
+            <input
+              value={form.logoUrl}
+              onChange={(e) => updateField("logoUrl", e.target.value)}
+              placeholder="/images/logo.png"
+              className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
+            />
+
+            <p className="mt-2 text-xs text-[#6e665f]">
+              Example: /images/logo.png
+            </p>
           </div>
 
           <div className="sm:col-span-2">

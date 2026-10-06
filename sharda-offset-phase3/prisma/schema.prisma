@@ -184,6 +184,7 @@ model FAQ {
 model SiteSetting {
   id               String   @id @default(cuid())
   businessName     String
+  logoUrl          String?
   address          String
   phonePrimary     String
   phoneSecondary   String?

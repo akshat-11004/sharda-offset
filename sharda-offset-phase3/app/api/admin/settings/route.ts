@@ -5,6 +5,7 @@ import { z } from "zod";
 
 const schema = z.object({
   businessName: z.string().trim().min(2).max(150),
+  logoUrl: z.string().trim().max(500).optional(),
   address: z.string().trim().min(5).max(500),
   phonePrimary: z.string().trim().min(5).max(30),
   phoneSecondary: z.string().trim().max(30).optional(),
@@ -30,13 +31,14 @@ export async function GET() {
     settings = await prisma.siteSetting.create({
       data: {
         businessName: "Sharda Offset",
+        logoUrl: "",
         address:
           "5, Priti Complex, Santram Road, Opp. Riddhi Laboratory, Nadiad, Gujarat",
         phonePrimary: "+91 9825405898",
         phoneSecondary: "+91 8866600582",
         whatsapp: "+919825405898",
         email: "shardaoffset@gmail.com",
-        hours: "9:00 AM – 7:30 PM",
+        hours: "9:00 AM - 7:00 PM",
         whatsappMessage:
           "Hello Sharda Offset, I would like to know more about your printing services.",
       },

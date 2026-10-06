@@ -3,7 +3,6 @@ import Navbar from "@/components/customer/Navbar";
 import { WhatsAppFab } from "@/components/customer/WhatsAppFab";
 import { getSiteSettings } from "@/lib/site-settings";
 
-
 export default async function CustomerLayout({
   children,
 }: {
@@ -16,6 +15,7 @@ export default async function CustomerLayout({
       <PageViewTracker />
       <Navbar
         businessName={settings.businessName}
+        logoUrl={settings.logoUrl}
         whatsapp={settings.whatsapp}
         whatsappMessage={
           settings.whatsappMessage ||

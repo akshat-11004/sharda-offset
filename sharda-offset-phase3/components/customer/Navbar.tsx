@@ -8,16 +8,18 @@ import Image from "next/image";
 
 type NavbarProps = {
   businessName: string;
+  logoUrl?: string | null;
   whatsapp: string;
-  phonePrimary: string;
   whatsappMessage: string;
+  phonePrimary: string;
 };
 
 export default function Navbar({
   businessName,
+  logoUrl,
   whatsapp,
-  phonePrimary,
   whatsappMessage,
+  phonePrimary,
 }: NavbarProps) {
   const [open, setOpen] = useState(false);
 
@@ -45,15 +47,21 @@ export default function Navbar({
           aria-label={`${businessName} home`}
           onClick={() => setOpen(false)}
         >
-          <div className="relative h-12 w-12 shrink-0">
-            <Image
-              src="/images/logo.png"
-              alt={`${businessName} logo`}
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+          {logoUrl ? (
+            <div className="relative h-12 w-36 shrink-0">
+              <Image
+                src={logoUrl}
+                alt={`${businessName} logo`}
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+          ) : (
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[var(--maroon)] text-sm font-bold text-white">
+              SO
+            </span>
+          )}
           {/* "for rectangular logo" */}
           {/* <div className="relative h-12 w-36 shrink-0">
             <Image
