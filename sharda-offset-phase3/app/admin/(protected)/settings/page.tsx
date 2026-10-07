@@ -14,15 +14,17 @@ type Settings = {
   whatsappMessage: string;
 };
 const defaults: Settings = {
-  businessName: "",
-  logoUrl: "",
-  address: "",
-  phonePrimary: "",
-  phoneSecondary: "",
-  whatsapp: "",
-  email: "",
-  hours: "",
-  whatsappMessage: "",
+  businessName: "Sharda Offset",
+  logoUrl: "public/images/logo.jpg",
+  address:
+    "5 priti complex, Santram Road, Opp. Riddhi Laboratory, Nadiad, Gujarat",
+  phonePrimary: "9825405898",
+  phoneSecondary: "8866600582",
+  whatsapp: "9825405898",
+  email: "shardaoffset@gmail.com",
+  hours: "9:00 AM - 7:00 PM",
+  whatsappMessage:
+    "Hello, I would like to know more about your printing services.",
 };
 
 export default function AdminSettingsPage() {
@@ -140,7 +142,6 @@ export default function AdminSettingsPage() {
               value={form.businessName}
               onChange={(e) => updateField("businessName", e.target.value)}
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
-              required
             />
           </div>
           <div className="sm:col-span-2">
@@ -170,7 +171,6 @@ export default function AdminSettingsPage() {
               onChange={(e) => updateField("address", e.target.value)}
               rows={3}
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
-              required
             />
           </div>
 
@@ -183,7 +183,6 @@ export default function AdminSettingsPage() {
               value={form.phonePrimary}
               onChange={(e) => updateField("phonePrimary", e.target.value)}
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
-              required
             />
           </div>
 
@@ -209,7 +208,6 @@ export default function AdminSettingsPage() {
               onChange={(e) => updateField("whatsapp", e.target.value)}
               placeholder="+919825405898"
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
-              required
             />
           </div>
 
@@ -221,7 +219,6 @@ export default function AdminSettingsPage() {
               value={form.email}
               onChange={(e) => updateField("email", e.target.value)}
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
-              required
             />
           </div>
 
@@ -234,7 +231,6 @@ export default function AdminSettingsPage() {
               value={form.hours}
               onChange={(e) => updateField("hours", e.target.value)}
               className="mt-2 w-full rounded-xl border border-[#dcd2c7] px-4 py-3 text-sm outline-none focus:border-[#7d2635]"
-              required
             />
           </div>
 

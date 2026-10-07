@@ -80,7 +80,7 @@ export default async function ServicePage({
               </div>
             </div>
             <div className={`service-hero service-${service.accent}`}>
-              <span>SHARDA OFFSET</span>
+              <span>{settings.businessName.toUpperCase()}</span>
               <strong>{service.name}</strong>
               <small>PRINT • DESIGN • CREATE</small>
             </div>
