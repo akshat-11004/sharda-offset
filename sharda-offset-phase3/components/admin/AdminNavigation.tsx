@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowLeft,
+  BriefcaseBusiness,
   ImageIcon,
   Inbox,
   LayoutDashboard,
@@ -17,6 +18,7 @@ const items = [
   ["Enquiries", "/admin/enquiries", Inbox],
   ["Samples", "/admin/samples", ImageIcon],
   ["Categories", "/admin/categories", ImageIcon],
+  ["Services", "/admin/services", BriefcaseBusiness],
   ["Settings", "/admin/settings", Settings],
 ] as const;
 
